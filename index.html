@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ريمي، أنتِ عيدي</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2e;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .startPage {
+            background-color: #9b59b6;  /* تغيير الخلفية لتكون بنفسجية */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            width: 100%;
+        }
+        h1 {
+            color: #ffcc70;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 24px;
+            color: #fff;
+            white-space: pre-line;
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background: #ff5733;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #ff4d00;
+            transform: scale(1.05);
+        }
+        .nextPage {
+            display: none;
+        }
+        #message {
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        #loveMessage {
+            font-size: 40px;
+            color: #ff4d4d;
+            font-weight: bold;
+            display: none;
+            margin-top: 20px;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 2s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+        
+        /* Media Query لتناسب الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 26px;
+            }
+            p {
+                font-size: 20px;
+            }
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+            .startPage {
+                padding: 30px;
+            }
+            #message {
+                font-size: 16px;
+            }
+            #loveMessage {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 22px;
+            }
+            p {
+                font-size: 18px;
+            }
+            button {
+                font-size: 14px;
+                padding: 6px 14px;
+            }
+            .startPage {
+                padding: 25px;
+            }
+            #message {
+                font-size: 14px;
+            }
+            #loveMessage {
+                font-size: 32px;
+            }
+        }
+    </style>
+    <script>
+        let messages = [
+            "ريمي يا اغلى من عيوني...",
+            "ريمي هذا ثاني عيد بيجمعنا...",
+            "هي العيد بحد ذاته...",
+            "بعرف العيديه هي بسيطه كثير..."
+        ];
+        let index = 0;
+
+        function startMessages() {
+            document.querySelector(".startPage").style.display = "none"; // إخفاء الصفحة الأولى
+            document.querySelector(".nextPage").style.display = "block"; // إظهار الصفحة التالية
+            showNextMessage(); // عرض الرسالة الأولى مباشرة
+        }
+
+        function showNextMessage() {
+            if (index < messages.length) {
+                document.getElementById("message").innerText = messages[index];
+                document.getElementById("message").style.display = "block";
+                index++;
+            } else {
+                document.getElementById("message").style.display = "none";
+                document.getElementById("loveMessage").style.display = "block";
+                createHearts();
+            }
+            createHearts(); // إضافة القلوب في كل مرة تضغط فيها
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "%";
+                heart.style.top = Math.random() * 100 + "%";
+                heart.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- الصفحة الأولى -->
+    <div class="container startPage">
+        <h1>ريمي، أنتِ عيدي</h1>
+        <p>هي عيديه بسيطه مني الك وآسف على التقصير</p>
+        <div class="buttons">
+            <button onclick="startMessages()">ابدأ</button>
+        </div>
+    </div>
+
+    <!-- الصفحة التالية مع الرسائل -->
+    <div class="container nextPage">
+        <h1>ريمي، أنتِ عيدي</h1>
+        <p id="message"></p>
+        <div class="buttons">
+            <button onclick="showNextMessage()">المسيني للتالي</button>
+        </div>
+        <div id="loveMessage"> ❤️ بحبك</div>
+    </div>
+</body>
+</html>
